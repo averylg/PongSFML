@@ -5,6 +5,7 @@ Basic 2-Player Pong clone created from scratch using the Simple and Fast Multime
 Player One:
 - W: Move up
 - S: Move down
+
 Player Two:
 - Up Arrow: Move up
 - Down Arrow: Move down
