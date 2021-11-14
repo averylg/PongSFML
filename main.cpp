@@ -15,7 +15,7 @@ int main()
     sf::RectangleShape player1(sf::Vector2f(40.0f, 200.0f));
     player1.setFillColor(sf::Color::Red);
     player1.setOrigin(player1.getOrigin().x + (player1.getSize().x / 2), player1.getOrigin().y + (player1.getSize().y / 2));
-    player1.setPosition(player1.getSize().x + (player1.getSize().x / 2), WIDTH / 2);
+    player1.setPosition(player1.getSize().x + (player1.getSize().x / 2), HEIGHT / 2);
 
     sf::RectangleShape player2(sf::Vector2f(40.0f, 200.0f));
     player2.setFillColor(sf::Color::Blue);
@@ -49,12 +49,15 @@ int main()
                 state = gs::State::GAME;
             }
             ball.setPosition(WIDTH / 2, HEIGHT / 2);
-            player1.setPosition(player1.getSize().x + (player1.getSize().x / 2), WIDTH / 2);
+            player1.setPosition(player1.getSize().x + (player1.getSize().x / 2), HEIGHT / 2);
             player2.setPosition(WIDTH - player1.getPosition().x, player1.getPosition().y);
 
             window.clear();
             break;
         case gs::State::GAME:
+
+            
+
             if (ball.getPosition().y + ball.getRadius() > HEIGHT
                 || ball.getPosition().y - ball.getRadius() < 0)
             {
@@ -93,23 +96,47 @@ int main()
 
             ball.setPosition(ball.getPosition().x + ballXDir, ball.getPosition().y + ballYDir);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            if (player1.getPosition().y - (player1.getSize().y / 2) < 0)
             {
-                player1.move(0, -1);
+                player1.setPosition(player1.getPosition().x, player1.getSize().y / 2);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            else if (player1.getPosition().y + (player1.getSize().y / 2) > HEIGHT)
             {
-                player1.move(0, 1);
+                player1.setPosition(player1.getPosition().x, HEIGHT - (player1.getSize().y / 2));
+            }
+            else
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+                {
+                    player1.move(0, -1);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+                {
+                    player1.move(0, 1);
+                }
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            if (player2.getPosition().y - (player2.getSize().y / 2) < 0)
             {
-                player2.move(0, -1);
+                player2.setPosition(player2.getPosition().x, player2.getSize().y / 2);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            else if (player2.getPosition().y + (player2.getSize().y / 2) > HEIGHT)
             {
-                player2.move(0, 1);
+                player2.setPosition(player2.getPosition().x, HEIGHT - (player2.getSize().y / 2));
             }
+            else
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                {
+                    player2.move(0, -1);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                {
+                    player2.move(0, 1);
+                }
+            }
+
+            
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
             {
